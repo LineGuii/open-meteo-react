@@ -1,4 +1,4 @@
-import { Control, useController } from 'react-hook-form';
+import { Control, RegisterOptions, useController } from 'react-hook-form';
 
 export function TextInput({
   control,
@@ -8,7 +8,7 @@ export function TextInput({
 }: RhfTextInputProps): JSX.Element {
   const {
     field: { onChange, ref, value },
-  } = useController({ control, name, defaultValue });
+  } = useController({ control, name, defaultValue, rules: rest.rules });
 
   return (
     <input
@@ -35,4 +35,10 @@ export interface RhfTextInputProps
   > {
   control: Control<any>;
   name: string;
+  rules?:
+    | Omit<
+        RegisterOptions<any, string>,
+        'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'
+      >
+    | undefined;
 }

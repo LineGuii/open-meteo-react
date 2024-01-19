@@ -1,7 +1,7 @@
 {
   "name": "vite-reactts-eslint-prettier",
   "description": "Open Meteo API integration with React, TypeScript, Eslint and Prettier",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
