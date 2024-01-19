@@ -1,11 +1,24 @@
-import { Container, H1 } from '@ui';
+import { Button, Container, Flex, H1 } from '@ui';
+import { Link } from 'react-router-dom';
 
 import { CurrentForecasts } from './components/current-forecasts';
+import { RefreshButton } from './components/refresh-button';
 
 export function Forecasts(): JSX.Element {
   return (
     <Container>
-      <H1>Previsões</H1>
+      <H1 style={{ marginBottom: '2rem' }}>Previsões</H1>
+
+      <Flex style={{ marginBottom: '1rem', gap: '0.5rem', justifyContent: 'flex-end' }}>
+        <Link to={'/add-forecasts'}>
+          <Button>
+            Adicionar Previsão <i className="fa-solid fa-add"></i>
+          </Button>
+        </Link>
+
+        <RefreshButton />
+      </Flex>
+
       <CurrentForecasts />
     </Container>
   );

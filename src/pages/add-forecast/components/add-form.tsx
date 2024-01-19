@@ -21,7 +21,7 @@ export function AddForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} name="add-forecast">
-      <div className={'grid gap-2 grid-flow-row-dense grid-cols-4'}>
+      <div className={'grid gap-2 grid-flow-row-dense grid-cols-3 sm:grid-cols-4'}>
         <div className={'flex flex-1 flex-col'}>
           <Label>Latitude</Label>
           <TextInput
@@ -46,8 +46,6 @@ export function AddForm() {
         <div className="flex-1 my-4 mx-4">
           <Button type="submit">Adicionar</Button>
         </div>
-
-        <div style={{ flex: 2 }} />
       </div>
     </Form>
   );

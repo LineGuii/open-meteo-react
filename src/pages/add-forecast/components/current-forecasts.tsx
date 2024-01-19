@@ -1,5 +1,5 @@
 import { forecastsState } from '@store/forecasts.store';
-import { Button } from '@ui';
+import { Button, IconButton } from '@ui';
 import { useRecoilState } from 'recoil';
 
 import { ForecastValues } from './types';
@@ -20,13 +20,14 @@ export function CurrentForecasts(): JSX.Element {
       {forecasts &&
         forecasts.map((f: ForecastValues) => (
           <div
-            className="grid gap-2 grid-flow-row-dense grid-cols-4"
+            className="grid gap-2 grid-flow-row-dense grid-cols-3 sm:grid-cols-4 hover:bg-slate-200"
             key={`${f.latitude}-${f.longitude}`}
           >
             <div className="flex-1">{f.latitude}</div>
             <div className="flex-1">{f.longitude}</div>
-            <Button onClick={() => handleDelete(f)}>x</Button>
-            <div style={{ flex: 2 }} />
+            <div className="flex-1 px-8">
+              <IconButton onClick={() => handleDelete(f)} iconClass="fa-solid fa-trash" />
+            </div>
           </div>
         ))}
     </div>

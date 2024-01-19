@@ -13,16 +13,20 @@ export type ResForecast = {
   timezone_abbreviation: string;
   elevation: number;
   current_units?: {
-    time: string;
-    interval: IntervalUnits;
-    temperature_2m: '°C' | '°F';
-    wind_speed_10m: 'km/h' | 'mph';
+    time?: string;
+    interval?: IntervalUnits;
+    temperature_2m?: '°C' | '°F';
+    wind_speed_10m?: 'km/h' | 'mph';
+    apparent_temperature?: '°C' | '°F';
+    precipitation_probability?: '%';
   };
   current?: {
-    time: Date;
-    interval: number;
-    temperature_2m: number;
-    wind_speed_10m: number;
+    time?: Date;
+    interval?: number;
+    temperature_2m?: number;
+    wind_speed_10m?: number;
+    apparent_temperature?: number;
+    precipitation_probability?: number;
   };
 };
 

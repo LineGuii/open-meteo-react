@@ -1,38 +1,48 @@
 import { OpenMeteoApi } from '@api';
-import { ResForecast } from '@api/open-meteo/open-meteo.types';
 import { ForecastValues } from '@pages/add-forecast/components/types';
 import { H1 } from '@ui';
-import { useEffect, useState } from 'react';
+
+import { ForecastData } from './forecast-data';
 
 export function ForecastCard({ forecast }: ForecastCardProps) {
-  const [data, setData] = useState<ResForecast>();
-  useEffect(() => {
-    OpenMeteoApi.getForecast({
-      latitude: Number(forecast.latitude),
-      longitude: Number(forecast.longitude),
-      current: 'temperature_2m,wind_speed_10m',
-    }).then((res) => {
-      setData(res);
-      console.log(res);
-    });
-  }, [forecast]);
+  const { data, isFetching } = OpenMeteoApi.getForecast({
+    latitude: Number(forecast.latitude),
+    longitude: Number(forecast.longitude),
+    current:
+      'temperature_2m,wind_speed_10m,apparent_temperature,precipitation_probability',
+  });
 
   return (
-    <div className="max-w-md bg-white rounded-lg shadow">
+    <div className="min-w-md max-w-md bg-white rounded-lg shadow py-4">
       <div className="flex flex-col items-center justify-center">
         <h3>
           Tempo agora em {forecast.latitude}, {forecast.longitude}
         </h3>
-        <H1>
-          {`${data?.current?.temperature_2m} ${data?.current_units?.temperature_2m}`}
-        </H1>
+        {isFetching && <p>Carregando...</p>}
+        {!isFetching && (
+          <H1>
+            {`${data?.current?.temperature_2m} ${data?.current_units?.temperature_2m}`}
+          </H1>
+        )}
       </div>
-      <div>
-        <p className="px-6">
-          <div className="bg-green-400 w-1 h-3 rounded-sm inline-block mr-1" />
-          {`${data?.current?.wind_speed_10m} ${data?.current_units?.wind_speed_10m}`}
-        </p>
-      </div>
+      {!isFetching && (
+        <div className="px-6">
+          <ForecastData
+            title="VENTO"
+            text={`${data?.current?.wind_speed_10m} ${data?.current_units?.wind_speed_10m}`}
+          />
+          <ForecastData
+            color="pink"
+            title="SENSAÇÃO TÉRMICA"
+            text={`${data?.current?.apparent_temperature} ${data?.current_units?.apparent_temperature}`}
+          />
+          <ForecastData
+            color="sky"
+            title="PROBABILIDADE DE CHUVA"
+            text={`${data?.current?.precipitation_probability}${data?.current_units?.precipitation_probability}`}
+          />
+        </div>
+      )}
     </div>
   );
 }
