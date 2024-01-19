@@ -5,7 +5,7 @@ export function H1(
   >,
 ) {
   return (
-    <h1 className="text-3xl font-bold" {...props}>
+    <h1 className="text-4xl font-bold" {...props}>
       {props.children}
     </h1>
   );

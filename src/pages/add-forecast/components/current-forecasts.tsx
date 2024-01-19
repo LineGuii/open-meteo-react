@@ -1,5 +1,5 @@
 import { forecastsState } from '@store/forecasts.store';
-import { Button, IconButton } from '@ui';
+import { IconButton } from '@ui';
 import { useRecoilState } from 'recoil';
 
 import { ForecastValues } from './types';
@@ -20,7 +20,7 @@ export function CurrentForecasts(): JSX.Element {
       {forecasts &&
         forecasts.map((f: ForecastValues) => (
           <div
-            className="grid gap-2 grid-flow-row-dense grid-cols-3 sm:grid-cols-4 hover:bg-slate-200"
+            className="grid gap-2 py-2 grid-flow-row-dense grid-cols-3 sm:grid-cols-4 hover:bg-slate-200"
             key={`${f.latitude}-${f.longitude}`}
           >
             <div className="flex-1">{f.latitude}</div>

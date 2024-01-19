@@ -20,10 +20,13 @@ export function ForecastCard({ forecast }: ForecastCardProps) {
   });
 
   return (
-    <div className="min-w-md max-w-md bg-white rounded-lg shadow py-4">
+    <div className="w-full min-w-md bg-white rounded-lg shadow py-4">
       <div className="flex flex-col items-center justify-center">
         <h3>
-          Tempo agora em {forecast.latitude}, {forecast.longitude}
+          Tempo agora em{' '}
+          <span className="font-semibold">
+            {forecast.latitude}, {forecast.longitude}
+          </span>
         </h3>
         {isFetching && <p>Carregando...</p>}
         {!isFetching && (

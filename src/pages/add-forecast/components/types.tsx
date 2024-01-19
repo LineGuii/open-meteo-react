@@ -1,4 +1,4 @@
 export type ForecastValues = {
-  latitude: string;
-  longitude: string;
+  latitude: string | undefined;
+  longitude: string | undefined;
 };
