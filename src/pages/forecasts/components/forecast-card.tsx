@@ -1,15 +1,22 @@
 import { OpenMeteoApi } from '@api';
 import { ForecastValues } from '@pages/add-forecast/components/types';
+import { requestUnitsState } from '@store/units.store';
 import { H1 } from '@ui';
+import { useRecoilValue } from 'recoil';
 
 import { ForecastData } from './forecast-data';
 
 export function ForecastCard({ forecast }: ForecastCardProps) {
+  const requestUnits = useRecoilValue(requestUnitsState);
   const { data, isFetching } = OpenMeteoApi.getForecast({
     latitude: Number(forecast.latitude),
     longitude: Number(forecast.longitude),
     current:
       'temperature_2m,wind_speed_10m,apparent_temperature,precipitation_probability',
+    timezone: 'America/Sao_Paulo',
+    precipitation_unit: requestUnits.precipitation_unit,
+    temperature_unit: requestUnits.temperature_unit,
+    wind_speed_unit: requestUnits.wind_speed_unit,
   });
 
   return (

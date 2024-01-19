@@ -4,5 +4,11 @@ export function TextInput(
     HTMLInputElement
   >,
 ): JSX.Element {
-  return <input className="py-1 px-2 color-gray-500 rounded-md" type="text" {...props} />;
+  return (
+    <input
+      className="py-1 px-2 color-gray-500 rounded-md box-border hover:border-neutral-600 hover:border-2"
+      type="text"
+      {...props}
+    />
+  );
 }

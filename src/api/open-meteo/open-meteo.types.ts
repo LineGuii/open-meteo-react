@@ -2,6 +2,10 @@ export type ReqForecast = {
   latitude: number;
   longitude: number;
   current?: string;
+  timezone?: string;
+  temperature_unit?: string;
+  wind_speed_unit?: string;
+  precipitation_unit?: string;
 };
 
 export type ResForecast = {
