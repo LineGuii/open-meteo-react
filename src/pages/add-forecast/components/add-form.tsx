@@ -1,6 +1,5 @@
 import { forecastsState } from '@store/forecasts.store';
 import { Button, Form, Label, TextInput } from '@ui';
-import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 

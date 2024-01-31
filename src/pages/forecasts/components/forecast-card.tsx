@@ -1,7 +1,8 @@
-import { OpenMeteoApi } from '@api';
+import { GeocodeMapsApi, OpenMeteoApi } from '@api';
 import { ForecastValues } from '@pages/add-forecast/components/types';
 import { requestUnitsState } from '@store/units.store';
-import { H1 } from '@ui';
+import { H1, Spinner } from '@ui';
+import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { ForecastData } from './forecast-data';
@@ -19,16 +20,28 @@ export function ForecastCard({ forecast }: ForecastCardProps) {
     wind_speed_unit: requestUnits.wind_speed_unit,
   });
 
+  const { data: locationData, isFetching: isLocationFetching } =
+    GeocodeMapsApi.getReverseLocation({
+      lat: Number(forecast.latitude),
+      lon: Number(forecast.longitude),
+    });
+
+  const localName = useMemo(() => {
+    if (isLocationFetching) {
+      return <Spinner />;
+    } else if (locationData == null || locationData?.error) {
+      return `(${forecast.latitude}, ${forecast.longitude})`;
+    }
+    return locationData?.address?.city;
+  }, [locationData, isLocationFetching, forecast]);
+
   return (
     <div className="w-full min-w-md bg-white rounded-lg shadow py-4">
       <div className="flex flex-col items-center justify-center">
         <h3>
-          Tempo agora em{' '}
-          <span className="font-semibold">
-            {forecast.latitude}, {forecast.longitude}
-          </span>
+          Tempo agora em <span className="font-semibold">{localName}</span>
         </h3>
-        {isFetching && <p>Carregando...</p>}
+        {isFetching && <Spinner />}
         {!isFetching && (
           <H1>
             {`${data?.current?.temperature_2m} ${data?.current_units?.temperature_2m}`}
@@ -51,6 +64,10 @@ export function ForecastCard({ forecast }: ForecastCardProps) {
             title="PROBABILIDADE DE CHUVA"
             text={`${data?.current?.precipitation_probability}${data?.current_units?.precipitation_probability}`}
           />
+          <div className="flex flex-1 mt-2">
+            <div className="flex-1"></div>
+            <div className="text-sky-600 font-semibold cursor-pointer">Exibir mais</div>
+          </div>
         </div>
       )}
     </div>

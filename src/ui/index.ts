@@ -6,5 +6,6 @@ export * from './h1';
 export * from './icon-button';
 export * from './label';
 export * from './navbar';
+export * from './spinner';
 export * from './switch-button';
 export * from './text-input';
